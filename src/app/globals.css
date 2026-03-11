@@ -1,33 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap');
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Dark Theme (Default) */
+  --bg-dark: #0A0F20;
+  --bg-surface: #12182B;
+  --primary: #6366F1;
+  --primary-glow: rgba(99, 102, 241, 0.3);
+  --secondary: #EC4899;
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --glass: rgba(18, 24, 43, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --accent-blur: rgba(99, 102, 241, 0.15);
+  --card-bg: rgba(18, 24, 43, 0.6);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+[data-theme='light'] {
+  --bg-dark: #F8FAFC;
+  --bg-surface: #FFFFFF;
+  --primary: #4F46E5;
+  --primary-glow: rgba(79, 70, 229, 0.2);
+  --secondary: #DB2777;
+  --text-primary: #1E293B;
+  --text-secondary: #64748B;
+  --border-color: rgba(0, 0, 0, 0.08);
+  --glass: rgba(255, 255, 255, 0.8);
+  --glass-border: rgba(0, 0, 0, 0.05);
+  --accent-blur: rgba(79, 70, 229, 0.08);
+  --card-bg: rgba(255, 255, 255, 0.7);
 }
 
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  font-family: 'Inter', sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+.outfit {
+  font-family: 'Outfit', sans-serif;
 }
 
 a {
@@ -35,8 +61,106 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+/* Glassmorphism Utility with Enhanced Blurring */
+.glass {
+  background: var(--glass);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+}
+
+/* Blurred Background Blobs */
+.blur-blob {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: var(--primary);
+  filter: blur(120px);
+  opacity: 0.15;
+  border-radius: 50%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.blur-blob-secondary {
+  background: var(--secondary);
+  width: 300px;
+  height: 300px;
+  filter: blur(100px);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
   }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.button-primary {
+  background: linear-gradient(135deg, var(--primary), #8B5CF6);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 14px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.button-primary:hover {
+  transform: scale(1.03);
+  box-shadow: 0 10px 20px var(--primary-glow);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+}
+
+main {
+  padding-top: 100px;
+  min-height: 100vh;
+}
+
+/* Theme Toggle styles */
+.theme-toggle {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.theme-toggle:hover {
+  transform: translateY(-2px);
 }
